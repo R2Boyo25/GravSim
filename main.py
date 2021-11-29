@@ -2,13 +2,46 @@ from dataclass import Velocity, Location, Distance
 from particle import Particle
 import random
 import pygame
+from PIL import Image, ImageFilter
+
+'''
+Suggestions:
+    -clear each frame
+    -render your "planets" as spheres with raymarching
+    -increase marching-sphere radius until you get a gravitational lava lamp
+
+    trust me bro
+    - gladeare#4045
+'''
+
 
 MERGE_THRESHOLD = 5
+f = True
 
 screen = pygame.display.set_mode([500, 500])
 
 width  = pygame.display.Info().current_w / 2
 height = pygame.display.Info().current_h / 2
+
+def toImage():
+    strFormat = 'RGBA'
+    raw_str = pygame.image.tostring(screen, strFormat, False)
+    image = Image.frombytes(strFormat, screen.get_size(), raw_str)
+    return image
+
+def toScreen(i):
+    return pygame.image.fromstring(
+        i.tobytes(), i.size, i.mode).convert()
+
+def blur(i):
+    return i.filter(ImageFilter.BLUR)
+
+def blurscreen():
+    ps = toScreen(blur(toImage()))
+    screen.fill((0,0,0))
+    if f:
+        screen.blit(ps, ps.get_rect(center = (width, height)))
+    
 
 def start():
     global particles
@@ -41,7 +74,6 @@ start()
 
 running = True
 #frame = 0
-f = True
 while running:
     particles = rem()
     merge()
@@ -50,8 +82,7 @@ while running:
         start()
 
     pygame.display.set_caption(str(len(particles)))
-
-    if f: screen.fill((0,0,0))
+    blurscreen()
 
     # Did the user click the window close button?
     for event in pygame.event.get():
@@ -66,6 +97,7 @@ while running:
         particle.draw(screen)
         #print(particle.location)
     
+
     #frame += 1
     #print(frame)
 
