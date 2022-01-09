@@ -54,7 +54,7 @@ def start():
                 ), 
             mass = 0.5,
             color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
-        ) for i in range(0, 250)]
+        ) for i in range(0, 0)]
 
 def rem():
     newParticles = []
@@ -71,6 +71,24 @@ def merge():
                     part1.Merge(part2)
 
 start()
+
+def unNormalize(l):
+    nx = 0
+    ny = 0
+    width  = pygame.display.Info().current_w / 2
+    height = pygame.display.Info().current_h / 2
+
+    if l.x > width:
+        nx = -l.x /2
+    else:
+        nx = l.x /2
+
+    if l.y > height:
+        ny = -l.y /2
+    else:
+        ny = l.y /2
+
+    return Location(nx, ny)
 
 running = True
 #frame = 0
@@ -90,6 +108,20 @@ while running:
             running = False
         elif event.type == pygame.KEYDOWN:
             f = not f
+        elif event.type == pygame.MOUSEBUTTONUP:
+            pos = pygame.mouse.get_pos()
+
+            particles.append(Particle(
+            velocity = Velocity(), 
+            location = unNormalize(
+                    Location(
+                        pos[0],
+                        pos[1]
+                    )
+            ), 
+            mass = 0.5,
+            color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+        ))
 
     for particle in particles:
         particle.grav(particles)

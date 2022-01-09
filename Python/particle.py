@@ -5,7 +5,7 @@ import math
 GRAVRATE = 1.3
 CENTER = Center()
 
-def attraction(par1, par2) -> int:
+def attraction(par1, par2) -> Velocity:
     '''GMm/R**2'''
     dist = Distance(par1, par2)
     f = (GRAVRATE * par1.mass * par2.mass) / dist.dsq if dist.dr > 1 else 0
@@ -56,9 +56,11 @@ class Particle:
         for part in particles:
             if part is not self:
                 self.velocity.addVec(attraction(self, part))
+        '''
         if abs(self.location.normalize(width, height)[0]) > width or abs(self.location.normalize(width, height)[1]) > height:
             a = attraction(self, CENTER)
             dist = Distance(self, CENTER)
             self.velocity.addVec(Velocity(a.x * dist.dx, a.y * dist.dy))
         else:
             self.velocity.addVec(attraction(self, CENTER))
+        '''

@@ -1,0 +1,26 @@
+[_default]
+out = "gsim"
+oarg = [
+    "-Ofast"
+]
+
+l = [
+    "X11"
+]
+
+com = "c++"
+obj = true
+
+[debug]
+out = "gsim"
+oarg = [
+    "-Ofast",
+    "-g"
+]
+
+l = [
+    "X11"
+]
+
+com = "c++"
+obj = true
