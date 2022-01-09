@@ -54,7 +54,7 @@ def start():
                 ), 
             mass = 0.5,
             color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
-        ) for i in range(0, 0)]
+        ) for i in range(0, 50)]
 
 def rem():
     newParticles = []
@@ -100,7 +100,8 @@ while running:
         start()
 
     pygame.display.set_caption(str(len(particles)))
-    blurscreen()
+    #blurscreen()
+    screen.fill((0,0,0))
 
     # Did the user click the window close button?
     for event in pygame.event.get():

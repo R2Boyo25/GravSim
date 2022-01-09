@@ -64,3 +64,5 @@ class Particle:
         else:
             self.velocity.addVec(attraction(self, CENTER))
         '''
+
+        self.velocity.addVec(attraction(self, CENTER))

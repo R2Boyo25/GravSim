@@ -37,4 +37,4 @@ class Center:
     __slots__ = ("location", "mass")
     def __init__(self):
         self.location = Location(0, 0)
-        self.mass = 50
+        self.mass = 25
